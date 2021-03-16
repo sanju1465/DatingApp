@@ -16,6 +16,7 @@ import { PreventUnsavedChangesGuard } from './_guards/prevent-unsaved-changes.gu
 import { MemberDetailedResolver } from './_resolvers/member-detailed.resolver';
 
 const routes: Routes = [  
+  { path: '', component: HomeComponent },
   { 
     path: '',
     runGuardsAndResolvers: 'always',
@@ -28,8 +29,7 @@ const routes: Routes = [
       { path: 'messages', component: MessagesComponent },
       { path: 'admin', component: AdminPanelComponent, canActivate: [AdminGuard] },
     ]
-  },
-  { path: '', component: HomeComponent },
+  },  
   { path: 'errors', component: TestErrorsComponent },  
   { path: 'not-found', component: NotFoundComponent },
   { path: 'server-error', component: ServerErrorComponent },  
