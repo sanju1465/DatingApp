@@ -56,9 +56,9 @@ namespace API.Data
                 .Include(u => u.Sender)
                 .Include(u => u.Recipient)
                 .SingleOrDefaultAsync(x => x.Id == id);
-        }
+        }      
 
-        public async Task<PagedList<MessageDto>> GetMessageForUser(MessageParams messageParams)
+        public async Task<PagedList<MessageDto>> GetMessagesForUser(MessageParams messageParams)
         {
             var query = _context.Messages
                 .OrderByDescending(m => m.MessageSent)
@@ -69,12 +69,14 @@ namespace API.Data
             {
                 "Inbox" => query.Where(u => u.RecipientUsername == messageParams.Username 
                     && u.RecipientDeleted == false),
-                "Outbox" => query.Where(u => u.SenderUsername == messageParams.Username 
+                "Outbox" => query.Where(u => u.SenderUsername == messageParams.Username
                     && u.SenderDeleted == false),
-                _ => query.Where(u => u.RecipientUsername == messageParams.Username && u.RecipientDeleted == false && u.DateRead == null)
+                _ => query.Where(u => u.RecipientUsername ==
+                    messageParams.Username && u.RecipientDeleted == false && u.DateRead == null)
             };
-            
+
             return await PagedList<MessageDto>.CreateAsync(query, messageParams.pageNumber, messageParams.PageSize);
+
         }
 
         public async Task<Group> GetMessageGroup(string groupName)
@@ -115,6 +117,8 @@ namespace API.Data
         {
             _context.Connections.Remove(connection);
         }
+
+       
 
         // public async Task<bool> SaveAllAsync()
         // {

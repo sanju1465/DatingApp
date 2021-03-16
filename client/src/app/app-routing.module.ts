@@ -15,8 +15,7 @@ import { AuthGuard } from './_guards/auth.guard';
 import { PreventUnsavedChangesGuard } from './_guards/prevent-unsaved-changes.guard';
 import { MemberDetailedResolver } from './_resolvers/member-detailed.resolver';
 
-const routes: Routes = [
-  { path: '', component: HomeComponent },
+const routes: Routes = [  
   { 
     path: '',
     runGuardsAndResolvers: 'always',
@@ -30,6 +29,7 @@ const routes: Routes = [
       { path: 'admin', component: AdminPanelComponent, canActivate: [AdminGuard] },
     ]
   },
+  { path: '', component: HomeComponent },
   { path: 'errors', component: TestErrorsComponent },  
   { path: 'not-found', component: NotFoundComponent },
   { path: 'server-error', component: ServerErrorComponent },  
